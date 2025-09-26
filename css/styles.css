@@ -152,7 +152,7 @@ h4, .h4 {
 }
 @media (min-width: 1200px) {
   h4, .h4 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -1472,13 +1472,11 @@ progress {
     flex: 0 0 auto;
     width: 75%;
   }
-  .col-xl-10 {
-    flex: 0 0 auto;
-    width: 83.33333333%;
+  @media (min-width: 1200px) {
+  .col-xl-11 { flex: 0 0 auto; width: 91.6667%; } /* 11/12 */
   }
-  .col-xl-11 {
-    flex: 0 0 auto;
-    width: 91.66666667%;
+  @media (min-width: 1400px) {
+    .col-xxl-10 { flex: 0 0 auto; width: 83.3333%; } /* 10/12 */
   }
   .col-xl-12 {
     flex: 0 0 auto;
