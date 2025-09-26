@@ -1472,12 +1472,8 @@ progress {
     flex: 0 0 auto;
     width: 75%;
   }
-  @media (min-width: 1200px) {
   .col-xl-11 { flex: 0 0 auto; width: 91.6667%; } /* 11/12 */
-  }
-  @media (min-width: 1400px) {
-    .col-xxl-10 { flex: 0 0 auto; width: 83.3333%; } /* 10/12 */
-  }
+  .col-xxl-10 { flex: 0 0 auto; width: 83.3333%; } /* 10/12 */
   .col-xl-12 {
     flex: 0 0 auto;
     width: 100%;
