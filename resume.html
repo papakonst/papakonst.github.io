@@ -12,6 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
+    <style>
+      /* Make the left info blocks ~4/5 of their previous width (from ~4/12 → ~3.2/12 ≈ 26.67%) on lg+ */
+      @media (min-width: 992px){
+        .left-4of5   { flex: 0 0 26.6667%; max-width: 26.6667%; }
+        .right-rest  { flex: 0 0 73.3333%; max-width: 73.3333%; }
+      }
+    </style>
   </head>
   <body class="d-flex flex-column h-100 bg-light">
     <main class="flex-shrink-0">
@@ -38,30 +45,6 @@
           <p class="text-muted mt-3 mb-0">Senior Computer Vision &amp; Machine Learning Engineer</p>
         </div>
 
-        <!-- About me -->
-        <div class="row gx-5 justify-content-center mb-5">
-          <div class="col-lg-12 col-xl-11 col-xxl-10">
-            <div class="card shadow border-0 rounded-4">
-              <div class="card-body p-4 p-md-5">
-                <h2 class="h4 text-primary fw-bolder mb-3">About me</h2>
-                <p class="mb-2">
-                  I hold an <strong>MEng in Computer Engineering and Informatics</strong> from the University of Patras (Greece) and an
-                  <strong>MSc in Computer Science</strong> from TU Delft’s Faculty of Electrical Engineering, Mathematics and Computer Science (EEMCS).
-                </p>
-                <p class="mb-2">
-                  Based in Patras, Greece, I’m a <strong>Senior Computer Vision Engineer at Irida Labs</strong> where I design and deliver
-                  production-grade vision systems—from optics and hardware selection through model training and edge deployment—to meet
-                  demanding industrial KPIs.
-                </p>
-                <p class="mb-0">
-                  I’m adaptable, organized, and calm under pressure; I enjoy working on cutting-edge technologies and can contribute independently
-                  or in cross-functional teams.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="row gx-5 justify-content-center">
           <div class="col-lg-12 col-xl-11 col-xxl-10">
 
@@ -69,16 +52,14 @@
             <section>
               <div class="d-flex align-items-center justify-content-between mb-4">
                 <h2 class="text-primary fw-bolder mb-0">Experience</h2>
-                <a class="btn btn-primary px-4 py-3" href="assets/Papakonst_CV_2024-2025.pdf" target="_blank" rel="noopener">
-                  <i class="bi bi-download me-2"></i>Download Resume (PDF)
-                </a>
+                <!-- Download button removed -->
               </div>
 
               <!-- Irida Labs -->
               <div class="card shadow border-0 rounded-4 mb-5">
                 <div class="card-body p-5">
                   <div class="row align-items-center gx-5">
-                    <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                    <div class="col-12 left-4of5 text-center text-lg-start mb-4 mb-lg-0">
                       <div class="bg-light p-4 rounded-4">
                         <div class="text-primary fw-bolder mb-2">2020 — Present</div>
                         <div class="small fw-bolder">Senior Computer Vision &amp; ML Engineer</div>
@@ -86,7 +67,7 @@
                         <div class="small text-muted">Greece</div>
                       </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-12 right-rest">
                       <h3 class="h6 fw-bolder mb-3">Senior Computer Vision &amp; ML Engineer</h3>
                       <ul class="mb-0">
                         <li>Architect and deliver end-to-end CV/ML pipelines aligned with industrial KPIs.</li>
@@ -105,7 +86,7 @@
               <div class="card shadow border-0 rounded-4 mb-5">
                 <div class="card-body p-5">
                   <div class="row align-items-center gx-5">
-                    <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                    <div class="col-12 left-4of5 text-center text-lg-start mb-4 mb-lg-0">
                       <div class="bg-light p-4 rounded-4">
                         <div class="text-primary fw-bolder mb-2">2021 — Present</div>
                         <div class="small fw-bolder">Robotics &amp; Autonomous Driving Instructor</div>
@@ -113,7 +94,7 @@
                         <div class="small text-muted">Greece</div>
                       </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-12 right-rest">
                       <ul class="mb-0">
                         <li>Develop curriculum in mechatronics, electronics, and embedded control.</li>
                         <li>Teach PID control, sensor integration, and mobile robot design from scratch.</li>
@@ -128,7 +109,7 @@
               <div class="card shadow border-0 rounded-4 mb-5">
                 <div class="card-body p-5">
                   <div class="row align-items-center gx-5">
-                    <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                    <div class="col-12 left-4of5 text-center text-lg-start mb-4 mb-lg-0">
                       <div class="bg-light p-4 rounded-4">
                         <div class="text-primary fw-bolder mb-2">2019 — 2020</div>
                         <div class="small fw-bolder">Seaman (Compulsory Military Service)</div>
@@ -136,7 +117,7 @@
                         <div class="small text-muted">Greece</div>
                       </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-12 right-rest">
                       <p class="mb-0">This information is classified.</p>
                     </div>
                   </div>
@@ -150,14 +131,14 @@
               <div class="card shadow border-0 rounded-4 mb-5">
                 <div class="card-body p-5">
                   <div class="row align-items-center gx-5">
-                    <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                    <div class="col-12 left-4of5 text-center text-lg-start mb-4 mb-lg-0">
                       <div class="bg-light p-4 rounded-4">
                         <div class="text-secondary fw-bolder mb-2">2015 — 2016</div>
                         <div class="small fw-bolder">University of Patras</div>
                         <div class="small text-muted">Patras, Greece</div>
                       </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-12 right-rest">
                       <p class="mb-2 fw-semibold">International Robotics Competitions Awards:</p>
                       <ul class="mb-0">
                         <li>1st &amp; 3rd place — Line Following, ITU Robot Olympics 2016 (Turkey), among 60 participants.</li>
@@ -177,7 +158,7 @@
               <div class="card shadow border-0 rounded-4 mb-5">
                 <div class="card-body p-5">
                   <div class="row align-items-center gx-5">
-                    <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                    <div class="col-12 left-4of5 text-center text-lg-start mb-4 mb-lg-0">
                       <div class="bg-light p-4 rounded-4">
                         <div class="text-secondary fw-bolder mb-2">2016 — 2018</div>
                         <div class="mb-2">
@@ -186,7 +167,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-12 right-rest">
                       <h3 class="h6 fw-bolder mb-2">Master of Science (M.Sc.) in Computer Science</h3>
                       <p class="mb-0">Faculty of Electrical Engineering, Mathematics and Computer Science (EEMCS).
                         Thesis: Instrument-playing humanoid robot using monocular 6D object localization and visual servoing.</p>
@@ -199,7 +180,7 @@
               <div class="card shadow border-0 rounded-4 mb-5">
                 <div class="card-body p-5">
                   <div class="row align-items-center gx-5">
-                    <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                    <div class="col-12 left-4of5 text-center text-lg-start mb-4 mb-lg-0">
                       <div class="bg-light p-4 rounded-4">
                         <div class="text-secondary fw-bolder mb-2">2010 — 2016</div>
                         <div class="mb-2">
@@ -208,7 +189,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-12 right-rest">
                       <h3 class="h6 fw-bolder mb-0">MEng in Computer Engineering and Informatics</h3>
                     </div>
                   </div>
