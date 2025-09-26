@@ -12,6 +12,7 @@
  */
 :root {
   --bs-blue: #1e30f3;
+  --brand-accent: #195ade;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
   --bs-pink: #e21e80;
@@ -11556,13 +11557,16 @@ html {
 
 .bg-gradient-primary-to-secondary {
   background: #1e30f3;
-  background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+  background: var(--brand-accent);
 }
 
+
 .text-gradient {
-  background: -webkit-linear-gradient(315deg, #1e30f3 0%, #e21e80 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: none !important;                 /* kill the gradient */
+  color: var(--brand-accent) !important;       /* show solid color */
+  -webkit-text-fill-color: var(--brand-accent) !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
 }
 
 .rounded-4 {
