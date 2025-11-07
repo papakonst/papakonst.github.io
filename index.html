@@ -50,6 +50,7 @@
         border-radius: 0.75rem;         /* thumbnail look */
         box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         transition: transform 160ms ease, box-shadow 160ms ease;
+        cursor: zoom-in;
       }
       .masonry-thumb:hover {
         transform: translateY(-2px);
@@ -57,6 +58,16 @@
       }
       .about-photos-title {
         font-weight: 800;
+      }
+
+      /* Lightbox polish */
+      .lightbox-modal .modal-content {
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+      }
+      .lightbox-modal .btn-close {
+        filter: invert(1); /* white close icon on dark backgrounds */
       }
     </style>
   </head>
@@ -114,21 +125,18 @@
                         <path d="M1507.7,7668.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155,32,275,190,260,339c-11,105-90,213-190,262 C1663.7,7681.6,1569.7,7688.6,1507.7,7668.6z"></path>
                         <path d="M227.7,6388.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155,32,275,190,260,339c-11,105-90,213-190,262 C383.7,6401.6,289.7,6408.6,227.7,6388.6z"></path>
                         <path d="M1507.7,6388.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155,32,275,190,260,339c-11,105-90,213-190,262 C1663.7,6401.6,1569.7,6408.6,1507.7,6388.6z"></path>
-                        <path d="M227.7,5108.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155,32,275,190,260,339c-11,105-90,213-190,262 C1663.7,5121.6,1569.7,5128.6,1507.7,5108.6z"></path>
+                        <path d="M227.7,5108.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155,32,275,190,260,339c-11,105-90,213-190,262 C383.7,5121.6,289.7,5128.6,227.7,5108.6z"></path>
                         <path d="M1507.7,5108.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155-32,275-190,260-339c-11-105-90-213-190-262 C1663.7,5121.6,1569.7,5128.6,1507.7,5108.6z"></path>
                         <path d="M227.7,3828.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155-32,275-190,260-339c-11-105-90-213-190-262 C383.7,3841.6,289.7,3848.6,227.7,3828.6z"></path>
                         <path d="M1507.7,3828.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155-32,275-190,260-339c-11-105-90-213-190-262 C1663.7,3841.6,1569.7,3848.6,1507.7,3828.6z"></path>
-                        <path d="M227.7,2548.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155-32,275-190,260-339c-11-105-90-213-190-262 C383.7,2561.6,289.7,2568.6,227.7,2548.6z"></path>
+                        <path d="M227.7,2548.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155-32,275-190,260-339c-11-105-90-213-190-262 C1663.7,2561.6,1569.7,2568.6,1507.7,2548.6z"></path>
                         <path d="M1507.7,2548.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155-32,275-190,260-339c-11-105-90-213-190-262 C1663.7,2561.6,1569.7,2568.6,1507.7,2548.6z"></path>
                         <path d="M227.7,1268.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155-32,275-190,260-339c-11-105-90-213-190-262 C383.7,1281.6,289.7,1288.6,227.7,1268.6z"></path>
                         <path d="M1507.7,1268.6c-105-35-200-141-222-248c-43-206,163-412,369-369c155-32,275-190,260-339c-11-105-90-213-190-262 C1663.7,1281.6,1569.7,1288.6,1507.7,1268.6z"></path>
                       </g>
                     </svg>
-                    <!-- END of SVG dots-->
                   </div>
-                  <div class="dots-2">
-                    <!-- (remaining dots omitted for brevity; unchanged) -->
-                  </div>
+                  <div class="dots-2"></div>
                   <div class="dots-3"></div>
                   <div class="dots-4"></div>
                 </div>
@@ -143,78 +151,104 @@
         <div class="container px-5">
           <div class="row gx-5 justify-content-center">
             <div class="col-xxl-8">
-              <div class="my-5">
+             <div class="my-5">
                 <h2 class="display-5 fw-bolder mb-4"><span class="text-gradient d-inline">About Me</span></h2>
                 <p class="text-dark text-start">
-                  I hold an <strong>MEng in Computer Engineering and Informatics</strong> from the University of Patras (Greece) and an
-                  <strong>MSc in Computer Science</strong> from TU Delft’s Faculty of Electrical Engineering, Mathematics and Computer Science (EEMCS).
+                    I hold an <strong>MEng in Computer Engineering and Informatics</strong> from the University of Patras (Greece) and an
+                    <strong>MSc in Computer Science</strong> from TU Delft’s Faculty of Electrical Engineering, Mathematics and Computer Science (EEMCS).
                 </p>
                 <p class="text-dark text-start mb-3">
-                  Based in Patras, Greece, I’m a <strong>Senior Computer Vision Engineer at Irida Labs</strong>. I build end-to-end computer vision
-                  solutions—covering optics and hardware choices, model training, data management, and low-latency edge deployment—for
-                  industrial applications.
+                    Based in Patras, Greece, I’m a <strong>Senior Computer Vision Engineer at Irida Labs</strong>. I build end-to-end computer vision
+                    solutions—covering optics and hardware choices, model training, data management, and low-latency edge deployment—for
+                    industrial applications.
                 </p>
 
                 <!-- Monocular 6D pose expertise -->
                 <p class="text-dark text-start mb-3">
-                  My core expertise is <strong>monocular 6D pose estimation</strong> at the intersection of deep learning and classical computer vision.
-                  I design pipelines that extract maximum signal from a single <strong>RGB</strong> image—combining robust feature learning with geometric
-                  reasoning and refinement—to recover accurate object pose. Monocular vision reduces system cost and complexity while enabling
-                  precise localization for manipulation, inspection, and guidance; when engineered well, it approaches RGB-D performance with
-                  far simpler hardware.
+                    My core expertise is <strong>monocular 6D pose estimation</strong> at the intersection of deep learning and classical computer vision.
+                    I design pipelines that extract maximum signal from a single <strong>RGB</strong> image—combining robust feature learning with geometric
+                    reasoning and refinement—to recover accurate object pose. Monocular vision reduces system cost and complexity while enabling
+                    precise localization for manipulation, inspection, and guidance; when engineered well, it approaches RGB-D performance with
+                    far simpler hardware.
                 </p>
 
                 <!-- Deep learning & AI -->
                 <p class="text-dark text-start mb-3">
-                  In <strong>deep learning and AI</strong>, I take a data-centric approach: curating datasets, generating synthetic samples, and enforcing
-                  rigorous evaluation. I build and fine-tune models with an emphasis on reliability and efficient inference (pruning/quantization)
-                  for edge deployment. I also apply MLOps practices to monitor drift and ensure repeatable, maintainable production systems.
+                    In <strong>deep learning and AI</strong>, I take a data-centric approach: curating datasets, generating synthetic samples, and enforcing
+                    rigorous evaluation. I build and fine-tune models with an emphasis on reliability and efficient inference (pruning/quantization)
+                    for edge deployment. I also apply MLOps practices to monitor drift and ensure repeatable, maintainable production systems.
                 </p>
 
                 <!-- Autonomous driving side projects -->
                 <p class="text-dark text-start mb-3">
-                  In my leisure time I develop <strong>autonomous mobile robots</strong>, using visual data for perception and navigation.
-                  I perform <strong>simultaneous localization and mapping</strong> to build consistent maps and maintain reliable positioning.
-                  For navigation, I design and implement <strong>planning and control</strong> strategies with safety layers.
-                  I also develop educational material on autonomous driving for <strong>high-school and undergraduate</strong> students,
-                  including hands-on labs and open-source examples.
+                    In my leisure time I develop <strong>autonomous mobile robots</strong>, using visual data for perception and navigation. I perform
+                    <strong>simultaneous localization and mapping</strong> to build consistent maps and maintain reliable positioning. For navigation,
+                    I design and implement <strong>planning and control</strong> strategies with safety layers. I also develop educational material on
+                    autonomous driving for <strong>high-school and undergraduate</strong> students, including hands-on labs and open-source examples.
                 </p>
 
                 <p class="text-dark text-start mb-4">
-                  Adaptable and organized, I enjoy tackling new challenges with <strong>cutting-edge technology</strong>,
-                  either independently or within cross-functional teams.
+                    Adaptable and organized, I enjoy tackling new challenges with <strong>cutting-edge technology</strong>,
+                    either independently or within cross-functional teams.
                 </p>
 
                 <!-- NEW: Photo collage / masonry grid -->
                 <h3 class="h4 about-photos-title mb-3 text-gradient d-inline-block">Snapshots</h3>
                 <div class="masonry" aria-label="Photo gallery">
-                  <!-- Rowless masonry; items auto-flow into 3/2/1 columns -->
+                  <!-- Items auto-flow into 3/2/1 columns; click any thumbnail to open lightbox -->
                   <figure class="masonry-item">
-                    <img class="masonry-thumb" src="assets/gallery-1.png" alt="Prototype robot navigating a test course" loading="lazy">
+                    <img class="masonry-thumb"
+                         src="assets/gallery-1.jpg"
+                         data-full="assets/gallery-1-full.jpg"
+                         alt="Prototype robot navigating a test course" loading="lazy">
                   </figure>
                   <figure class="masonry-item">
-                    <img class="masonry-thumb" src="assets/gallery-2.png" alt="Edge deployment setup with camera and SBC" loading="lazy">
+                    <img class="masonry-thumb"
+                         src="assets/gallery-2.jpg"
+                         data-full="assets/gallery-2-full.jpg"
+                         alt="Edge deployment setup with camera and SBC" loading="lazy">
                   </figure>
                   <figure class="masonry-item">
-                    <img class="masonry-thumb" src="assets/gallery-3.jpg" alt="Dataset capture rig in the lab" loading="lazy">
+                    <img class="masonry-thumb"
+                         src="assets/gallery-3.jpg"
+                         data-full="assets/gallery-3-full.jpg"
+                         alt="Dataset capture rig in the lab" loading="lazy">
                   </figure>
                   <figure class="masonry-item">
-                    <img class="masonry-thumb" src="assets/gallery-4.jpg" alt="Teaching session with hands-on robotics kits" loading="lazy">
+                    <img class="masonry-thumb"
+                         src="assets/gallery-4.jpg"
+                         data-full="assets/gallery-4-full.jpg"
+                         alt="Teaching session with hands-on robotics kits" loading="lazy">
                   </figure>
                   <figure class="masonry-item">
-                    <img class="masonry-thumb" src="assets/gallery-5.jpg" alt="Close-up of monocular camera module" loading="lazy">
+                    <img class="masonry-thumb"
+                         src="assets/gallery-5.jpg"
+                         data-full="assets/gallery-5-full.jpg"
+                         alt="Close-up of monocular camera module" loading="lazy">
                   </figure>
                   <figure class="masonry-item">
-                    <img class="masonry-thumb" src="assets/gallery-6.jpg" alt="Robotics track with safety barriers" loading="lazy">
+                    <img class="masonry-thumb"
+                         src="assets/gallery-6.jpg"
+                         data-full="assets/gallery-6-full.jpg"
+                         alt="Robotics track with safety barriers" loading="lazy">
                   </figure>
                   <figure class="masonry-item">
-                    <img class="masonry-thumb" src="assets/gallery-7.jpg" alt="Inference profiling on embedded device" loading="lazy">
+                    <img class="masonry-thumb"
+                         src="assets/gallery-7.jpg"
+                         data-full="assets/gallery-7-full.jpg"
+                         alt="Inference profiling on embedded device" loading="lazy">
                   </figure>
                   <figure class="masonry-item">
-                    <img class="masonry-thumb" src="assets/gallery-8.jpg" alt="Workshop participants testing autonomous cars" loading="lazy">
+                    <img class="masonry-thumb"
+                         src="assets/gallery-8.jpg"
+                         data-full="assets/gallery-8-full.jpg"
+                         alt="Workshop participants testing autonomous cars" loading="lazy">
                   </figure>
                   <figure class="masonry-item">
-                    <img class="masonry-thumb" src="assets/gallery-9.jpg" alt="3D printed parts for a mobile robot" loading="lazy">
+                    <img class="masonry-thumb"
+                         src="assets/gallery-9.jpg"
+                         data-full="assets/gallery-9-full.jpg"
+                         alt="3D printed parts for a mobile robot" loading="lazy">
                   </figure>
                 </div>
 
@@ -225,11 +259,27 @@
                   <a class="text-gradient" href="#!"><i class="bi bi-twitter"></i></a>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
       </section>
     </main>
+
+    <!-- Lightbox Modal -->
+    <div class="modal fade lightbox-modal" id="lightboxModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-close m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="px-3 pb-3">
+            <img id="lightboxImage" class="img-fluid rounded shadow" alt="">
+            <div id="lightboxCaption" class="text-center text-light-emphasis mt-2 small"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Footer-->
     <footer class="bg-white py-4 mt-auto">
@@ -249,6 +299,36 @@
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lightbox script -->
+    <script>
+      (function () {
+        const modalEl = document.getElementById('lightboxModal');
+        const modal = new bootstrap.Modal(modalEl, { focus: true });
+        const imgEl = document.getElementById('lightboxImage');
+        const capEl = document.getElementById('lightboxCaption');
+
+        document.addEventListener('click', function (e) {
+          const thumb = e.target.closest('.masonry-thumb');
+          if (!thumb) return;
+
+          const fullSrc = thumb.getAttribute('data-full') || thumb.getAttribute('src');
+          const alt = thumb.getAttribute('alt') || '';
+          imgEl.src = fullSrc;
+          imgEl.alt = alt;
+          capEl.textContent = alt;
+          modal.show();
+        });
+
+        // Clear src on hide to free memory on mobile
+        modalEl.addEventListener('hidden.bs.modal', function () {
+          imgEl.src = '';
+          imgEl.alt = '';
+          capEl.textContent = '';
+        });
+      })();
+    </script>
+
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
   </body>
