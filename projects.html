@@ -12,6 +12,73 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
+    <style>
+      /* Skills button row */
+      .skills-row .btn {
+        pointer-events: none;               /* visually 'disabled' and non-clickable */
+      }
+
+      /* 3-up gallery under each project */
+      .proj-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 1rem;
+      }
+      @media (max-width: 768px) {
+        .proj-gallery { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 480px) {
+        .proj-gallery { grid-template-columns: 1fr; }
+      }
+
+      .thumb-wrap {
+        position: relative;
+        aspect-ratio: 16 / 9;     /* tidy thumbs; change or remove if you prefer square */
+        overflow: visible;
+      }
+      .thumb-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;        /* neat thumb framing */
+        border-radius: .75rem;
+        box-shadow: 0 6px 20px rgba(0,0,0,.08);
+        transition: transform 160ms ease, box-shadow 160ms ease;
+        display: block;
+      }
+      .thumb-wrap:hover .thumb-img {
+        transform: scale(1.08);   /* tiny lift on tile itself */
+        box-shadow: 0 10px 28px rgba(0,0,0,.12);
+      }
+
+      /* Overlay preview that respects intrinsic aspect ratio on hover */
+      .thumb-preview {
+        position: absolute;
+        inset: 50% auto auto 50%;
+        transform: translate(-50%,-50%) scale(.9);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 30;
+        border-radius: .75rem;
+        box-shadow: 0 18px 40px rgba(0,0,0,.22);
+        transition: opacity 150ms ease, transform 150ms ease;
+        background: #fff;
+
+        width: auto; height: auto;
+        max-width: min(90vw, 140%);   /* grow ~30% beyond tile area */
+        max-height: 80vh;
+        object-fit: contain;          /* keep original aspect ratio */
+      }
+      .thumb-wrap:hover .thumb-preview {
+        opacity: 1;
+        transform: translate(-50%,-50%) scale(1);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .thumb-img, .thumb-preview { transition: none; }
+        .thumb-wrap:hover .thumb-img { transform: none; }
+      }
+    </style>
   </head>
   <body class="d-flex flex-column h-100 bg-light">
     <main class="flex-shrink-0">
@@ -25,7 +92,7 @@
               <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
               <li class="nav-item"><a class="nav-link active" aria-current="page" href="projects.html">Projects</a></li>
-              <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+              <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/ioannispapakonstantinopoulos/">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -41,25 +108,262 @@
           <div class="row gx-5 justify-content-center">
             <div class="col-lg-12 col-xl-11 col-xxl-10">
 
-              <!-- Latest first: M.Sc. thesis -->
+              <!-- Newest → Oldest -->
+
+              <!-- 6D Pose estimation for robotics arm grasping -->
               <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
                 <div class="card-body p-0">
-                  <div class="d-flex flex-column align-items-start">
-                    <div class="p-5">
-                      <h3 class="fw-bolder h4 mb-3">Instrument-Playing Humanoid Robot (M.Sc. Thesis)</h3>
-                      <p class="mb-0">Computer-vision-based detection and 6D localization of a metallophone for a NAO humanoid robot, combined with visual servoing to perform accurate playing motions.</p>
+                  <div class="p-5">
+                    <h3 class="fw-bolder h4 mb-3">6D Pose Estimation for Robotic Arm Grasping — Irida Labs &amp; SUPSI (2023–2025)</h3>
+                    <p class="mb-3">
+                      Delivered a ROS-based computer vision pipeline for high-accuracy 6D pose estimation using RGB-D (ToF). The system employs a
+                      two-stage approach—object detection followed by a foundation pose estimator—to enable robust grasping across varying lighting
+                      and backgrounds. Integrated camera calibration and validation loops to ensure repeatable accuracy in real deployments.
+                    </p>
+                    <div class="skills-row d-flex flex-wrap gap-2 mb-3">
+                      <button class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">Python</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">ROS</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">Foundation Pose</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">CNNs</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">Object Detection</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">Synthetic Data</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">OpenCV</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">Camera Calibration</button>
+                    </div>
+                    <div class="proj-gallery">
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p6-1.jpg" alt="Arm grasping setup - overview" loading="lazy">
+                        <img class="thumb-preview" src="assets/p6-1.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p6-2.jpg" alt="Detection and pose overlay" loading="lazy">
+                        <img class="thumb-preview" src="assets/p6-2.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p6-3.jpg" alt="Grasp success metrics dashboard" loading="lazy">
+                        <img class="thumb-preview" src="assets/p6-3.jpg" alt="">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <!-- Robotics Club -->
+              <!-- Smart cooking device Data & AI solution -->
+              <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                <div class="card-body p-0">
+                  <div class="p-5">
+                    <h3 class="fw-bolder h4 mb-3">Smart Cooking Device — Data &amp; AI Solution (2023–2025)</h3>
+                    <p class="mb-3">
+                      Co-developed an embedded AI stack for a next-generation kitchen appliance: food classification, placement guidance, and
+                      robust inference on constrained hardware. Augmented scarce data with diffusion-based generation and few-shot techniques to
+                      improve generalisation across ingredients, cookware, and lighting conditions.
+                    </p>
+                    <div class="skills-row d-flex flex-wrap gap-2 mb-3">
+                      <button class="btn btn-sm btn-outline-secondary disabled">Stable Diffusion</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Few-Shot Learning</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Image Classification</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">CNNs</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Object Detection</button>
+                    </div>
+                    <div class="proj-gallery">
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p5-1.jpg" alt="Device UI with classification" loading="lazy">
+                        <img class="thumb-preview" src="assets/p5-1.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p5-2.jpg" alt="Dataset samples and labels" loading="lazy">
+                        <img class="thumb-preview" src="assets/p5-2.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p5-3.jpg" alt="Placement guidance overlay" loading="lazy">
+                        <img class="thumb-preview" src="assets/p5-3.jpg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RGB Stereo scanner with pattern projector -->
+              <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                <div class="card-body p-0">
+                  <div class="p-5">
+                    <h3 class="fw-bolder h4 mb-3">RGB Stereo Scanner with Pattern Projector — Irida Labs (2022–2023)</h3>
+                    <p class="mb-3">
+                      Designed a high-precision stereo 3D scanner (2× RGB + pattern projector) in collaboration with Gizelis Robotics and LMS
+                      (<a href="https://hybridr-project.eu/consortium/index.html" target="_blank" rel="noopener">HybridR</a>). Achieved sub-millimetre
+                      accuracy and implemented hand-eye calibration to register the sensor in the robot base frame for reliable manipulation and inspection.
+                    </p>
+                    <div class="skills-row d-flex flex-wrap gap-2 mb-3">
+                      <button class="btn btn-sm btn-outline-secondary disabled">C++</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">OpenCV</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Camera Calibration</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Stereo Calibration</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">ArUco</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">3D Vision</button>
+                    </div>
+                    <div class="proj-gallery">
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p4-1.jpg" alt="Stereo rig with projector" loading="lazy">
+                        <img class="thumb-preview" src="assets/p4-1.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p4-2.jpg" alt="Calibration targets and setup" loading="lazy">
+                        <img class="thumb-preview" src="assets/p4-2.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p4-3.jpg" alt="Reconstruction accuracy results" loading="lazy">
+                        <img class="thumb-preview" src="assets/p4-3.jpg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- End-to-end industrial quality inspection -->
+              <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                <div class="card-body p-0">
+                  <div class="p-5">
+                    <h3 class="fw-bolder h4 mb-3">Industrial Quality Inspection at the Edge — Irida Labs (2021–2022)</h3>
+                    <p class="mb-3">
+                      Built a production-grade CV system on NVIDIA Jetson, integrating three cameras and a PLC. The pipeline captures products via
+                      photocells, detects defects in real time, and signals the PLC to stop the line on failures. Emphasis on low latency, robust
+                      operation, and clear diagnostics for operators.
+                    </p>
+                    <div class="skills-row d-flex flex-wrap gap-2 mb-3">
+                      <button class="btn btn-sm btn-outline-secondary disabled">Python</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Image Classification</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">CNNs</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Object Detection</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Jetson</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Software Architecture</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">MQTT</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">OpenCV</button>
+                    </div>
+                    <div class="proj-gallery">
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p3-1.jpg" alt="Edge device with multi-camera rig" loading="lazy">
+                        <img class="thumb-preview" src="assets/p3-1.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p3-2.jpg" alt="Defect detection visualization" loading="lazy">
+                        <img class="thumb-preview" src="assets/p3-2.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p3-3.jpg" alt="PLC integration and signals" loading="lazy">
+                        <img class="thumb-preview" src="assets/p3-3.jpg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Multi-camera pose estimation for warehouse monitoring -->
+              <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                <div class="card-body p-0">
+                  <div class="p-5">
+                    <h3 class="fw-bolder h4 mb-3">Multi-Camera Pose Estimation for Warehouse Monitoring — Irida Labs (2020–2021)</h3>
+                    <p class="mb-3">
+                      Developed a multi-view 6D pose estimation system by combining object detection and keypoint estimation, followed by
+                      <code>solvePnP</code>. Registered poses from many cameras into a common 3D reference frame to track assets and events at scale.
+                    </p>
+                    <div class="skills-row d-flex flex-wrap gap-2 mb-3">
+                      <button class="btn btn-sm btn-outline-secondary disabled">Python</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">PyTorch</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">CNNs</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Object Detection</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Keypoint Estimation</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Clustering</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">3D Vision</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Camera Calibration</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Multi-Camera Registration</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Synthetic Data</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">OpenCV</button>
+                    </div>
+                    <div class="proj-gallery">
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p2-1.jpg" alt="Warehouse camera network" loading="lazy">
+                        <img class="thumb-preview" src="assets/p2-1.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p2-2.jpg" alt="Detections and keypoints" loading="lazy">
+                        <img class="thumb-preview" src="assets/p2-2.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p2-3.jpg" alt="Global 3D pose alignment" loading="lazy">
+                        <img class="thumb-preview" src="assets/p2-3.jpg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- M.Sc. Thesis: Instrument-Playing Humanoid Robot -->
+              <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                <div class="card-body p-0">
+                  <div class="p-5">
+                    <h3 class="fw-bolder h4 mb-3">Instrument-Playing Humanoid Robot (M.Sc. Thesis) — TU Delft (2017–2018)</h3>
+                    <p class="mb-3">
+                      Implemented computer-vision-based detection and 6D localization of a metallophone for the NAO humanoid robot, coupled with
+                      visual servoing to execute precise striking motions. Included camera calibration and kinematic modelling (forward/inverse) for
+                      end-to-end accuracy.
+                    </p>
+                    <div class="skills-row d-flex flex-wrap gap-2 mb-3">
+                      <button class="btn btn-sm btn-outline-secondary disabled">Python</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Classical CV</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Camera Calibration</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">6D Monocular Pose</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Kinematics</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Visual Servoing</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">OpenCV</button>
+                    </div>
+                    <div class="proj-gallery">
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p1-1.jpg" alt="NAO with metallophone" loading="lazy">
+                        <img class="thumb-preview" src="assets/p1-1.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p1-2.jpg" alt="Pose estimation on instrument" loading="lazy">
+                        <img class="thumb-preview" src="assets/p1-2.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p1-3.jpg" alt="Servoing trajectory visualisation" loading="lazy">
+                        <img class="thumb-preview" src="assets/p1-3.jpg" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Line Following Mobile Robots -->
               <div class="card overflow-hidden shadow rounded-4 border-0">
                 <div class="card-body p-0">
-                  <div class="d-flex flex-column align-items-start">
-                    <div class="p-5">
-                      <h3 class="fw-bolder h4 mb-3">Robotics Club — Line Following Mobile Robots (2015–2016)</h3>
-                      <p class="mb-0">Team project building competitive line-following robots; responsibilities covered algorithm design, software &amp; testing, sensor selection &amp; integration, electronics, and PID control.</p>
+                  <div class="p-5">
+                    <h3 class="fw-bolder h4 mb-3">Line-Following Mobile Robots — Robotics Club, University of Patras (2015–2016)</h3>
+                    <p class="mb-3">
+                      Team project to build competitive line-following robots. Led algorithm design, software development and testing; contributed to
+                      sensor selection, integration, and optimisation; and tuned PID control for speed and stability on challenging tracks.
+                    </p>
+                    <div class="skills-row d-flex flex-wrap gap-2 mb-3">
+                      <button class="btn btn-sm btn-outline-secondary disabled">C</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">PID Control</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Algorithms</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Robotics</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Electronics</button>
+                      <button class="btn btn-sm btn-outline-secondary disabled">Sensors</button>
+                    </div>
+                    <div class="proj-gallery">
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p0-1.jpg" alt="Robot chassis and sensors" loading="lazy">
+                        <img class="thumb-preview" src="assets/p0-1.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p0-2.jpg" alt="Track following in competition" loading="lazy">
+                        <img class="thumb-preview" src="assets/p0-2.jpg" alt="">
+                      </div>
+                      <div class="thumb-wrap">
+                        <img class="thumb-img" src="assets/p0-3.jpg" alt="Control tuning workspace" loading="lazy">
+                        <img class="thumb-preview" src="assets/p0-3.jpg" alt="">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -69,8 +373,6 @@
           </div>   <!-- /row -->
         </div>     <!-- /container -->
       </section>
-
-
     </main>
 
     <footer class="bg-white py-4 mt-auto">
