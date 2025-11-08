@@ -17,51 +17,36 @@
     <!-- Theme CSS-->
     <link href="css/styles.css" rel="stylesheet" />
     <style>
-      /* brand blue helper (falls back to Bootstrap primary if --brand-accent isn't set) */
       .brand-accent { color: var(--brand-accent, var(--bs-primary)) !important; }
-
-      /* Requested sizes */
       .header-name  { font-size: 16pt; line-height: 1.3; }
       .header-title { font-size: 12pt; line-height: 1.3; }
-
-      .thumb-img--gif {
-                object-fit: contain;          /* show the whole GIF */
-                background: #f8f9fa;          /* neutral backdrop for letterboxing */
-              }
-
-      /* Tighten spacing since text is smaller now */
       .header-actions { margin-top: 1.25rem; }
-
-      /* Profile photo rounded corners */
       .profile-img { border-radius: 1rem; }
 
-      /* Full justification utility (Bootstrap 5 has no built-in) */
-      .text-justify {
-        text-align: justify;
-        text-justify: inter-word;
-      }
+      /* Optional: friendlier GIF handling for square thumbs */
+      .thumb-img--gif { object-fit: contain; background: #f8f9fa; }
 
-      /* --- Responsive thumbnail grid that fills the column width --- */
+      /* Full justification helper */
+      .text-justify { text-align: justify; text-justify: inter-word; }
+
+      /* Grid fills the column width */
       .thumb-grid {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop */
+        grid-template-columns: repeat(3, 1fr);
         gap: 12px;
-        overflow: visible; /* allow hover zoom to float over neighbors */
+        overflow: visible;
       }
-      @media (max-width: 992px) { /* lg and below: 2 columns */
-        .thumb-grid { grid-template-columns: repeat(2, 1fr); }
-      }
-      @media (max-width: 576px) { /* sm and below: 1 column */
-        .thumb-grid { grid-template-columns: 1fr; }
-      }
+      @media (max-width: 992px) { .thumb-grid { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 576px) { .thumb-grid { grid-template-columns: 1fr; } }
 
       .thumb-wrap {
         position: relative;
-        aspect-ratio: 1 / 1; /* square tiles that scale with column width */
-        overflow: visible;
+        aspect-ratio: 1 / 1;   /* square tile */
+        overflow: visible;      /* allow overlay to extend */
       }
 
+      /* Base square thumbnail (cropped) */
       .thumb-img {
         width: 100%;
         height: 100%;
@@ -69,18 +54,46 @@
         display: block;
         border-radius: 0.75rem;
         box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-        transition: transform 200ms ease, box-shadow 200ms ease;
+        transition: transform 150ms ease, box-shadow 150ms ease;
         transform-origin: center center;
-        cursor: zoom-in;
         will-change: transform;
       }
+      .thumb-wrap:hover .thumb-img {
+        transform: scale(1.03); /* subtle lift for the tile itself */
+        box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+      }
 
-      /* Hover: enlarge by 30% */
-      .thumb-img:hover {
-        transform: scale(1.3);
-        z-index: 10;
-        position: relative;
+      /* Overlay preview that preserves the image's intrinsic aspect ratio */
+      .thumb-preview {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%) scale(0.96);
+        opacity: 0;
+        pointer-events: none;           /* don't steal hover/mouse */
+        border-radius: 0.75rem;
         box-shadow: 0 18px 40px rgba(0,0,0,0.22);
+        transition: opacity 150ms ease, transform 150ms ease;
+        z-index: 30;
+
+        /* Natural sizing with safe bounds */
+        width: auto;
+        height: auto;
+        max-width: min(90vw, 140%);
+        max-height: 80vh;
+        object-fit: contain;            /* keep original aspect ratio */
+        background: #fff;               /* behind transparent PNG/GIF edges */
+      }
+      .thumb-wrap:hover .thumb-preview {
+        opacity: 1;
+        transform: translate(-50%,-50%) scale(1);
+      }
+
+      /* Respect reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .thumb-img,
+        .thumb-preview { transition: none; }
+        .thumb-wrap:hover .thumb-img { transform: none; }
       }
     </style>
   </head>
@@ -138,7 +151,6 @@
               <div class="my-5">
                 <h2 class="display-5 fw-bolder mb-4"><span class="text-gradient d-inline">About Me</span></h2>
 
-                <!-- Fully justified paragraphs -->
                 <p class="text-dark text-justify">
                   I hold an <strong>MEng in Computer Engineering and Informatics</strong> from the University of Patras (Greece) and an
                   <strong>MSc in Computer Science</strong> from TU Delft’s Faculty of Electrical Engineering, Mathematics and Computer Science (EEMCS).
@@ -148,7 +160,6 @@
                   solutions—covering optics and hardware choices, model training, data management, and low-latency edge deployment—for
                   industrial applications.
                 </p>
-
                 <p class="text-dark text-justify mb-3">
                   My core expertise is <strong>monocular 6D pose estimation</strong> at the intersection of deep learning and classical computer vision.
                   I design pipelines that extract maximum signal from a single <strong>RGB</strong> image—combining robust feature learning with geometric
@@ -156,13 +167,11 @@
                   precise localization for manipulation, inspection, and guidance; when engineered well, it approaches RGB-D performance with
                   far simpler hardware.
                 </p>
-
                 <p class="text-dark text-justify mb-3">
                   In <strong>deep learning and AI</strong>, I take a data-centric approach: curating datasets, generating synthetic samples, and enforcing
                   rigorous evaluation. I build and fine-tune models with an emphasis on reliability and efficient inference (pruning/quantization)
                   for edge deployment. I also apply MLOps practices to monitor drift and ensure repeatable, maintainable production systems.
                 </p>
-
                 <p class="text-dark text-justify mb-4">
                   In my leisure time I develop <strong>autonomous mobile robots</strong>, using visual data for perception and navigation. I perform
                   <strong>simultaneous localization and mapping</strong> to build consistent maps and maintain reliable positioning. For navigation,
@@ -170,51 +179,68 @@
                   autonomous driving for <strong>high-school and undergraduate</strong> students, including hands-on labs and open-source examples.
                 </p>
 
-                <!-- Responsive grid that fills the column width -->
+                <!-- Responsive grid with intrinsic-ratio hover previews -->
                 <div class="thumb-grid" aria-label="Photo gallery">
+                  <!-- Tile 1 -->
                   <div class="thumb-wrap">
                     <img class="thumb-img" src="assets/gallery-1.gif" alt="Prototype robot navigating a test course" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-1.gif" alt="" aria-hidden="true">
                   </div>
+                  <!-- Tile 2 -->
                   <div class="thumb-wrap">
                     <img class="thumb-img" src="assets/gallery-2.jpg" alt="Edge deployment setup with camera and SBC" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-2.jpg" alt="" aria-hidden="true">
                   </div>
+                  <!-- Tile 3 -->
                   <div class="thumb-wrap">
                     <img class="thumb-img" src="assets/gallery-3.png" alt="Dataset capture rig in the lab" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-3.png" alt="" aria-hidden="true">
                   </div>
+                  <!-- Tile 4 -->
                   <div class="thumb-wrap">
-                    <img class="thumb-img thumb-img--gif"
-                        src="assets/gallery-4.gif"
-                        alt="Teaching session with hands-on robotics kits"
-                        loading="eager" decoding="async">
+                    <img class="thumb-img thumb-img--gif" src="assets/gallery-4.gif" alt="Teaching session with hands-on robotics kits" loading="eager" decoding="async">
+                    <img class="thumb-preview" src="assets/gallery-4.gif" alt="" aria-hidden="true">
                   </div>
-
-                  
+                  <!-- Tile 5 -->
                   <div class="thumb-wrap">
                     <img class="thumb-img" src="assets/gallery-5.gif" alt="Close-up of monocular camera module" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-5.gif" alt="" aria-hidden="true">
                   </div>
+                  <!-- Tile 6 -->
                   <div class="thumb-wrap">
                     <img class="thumb-img" src="assets/gallery-6.jpg" alt="Robotics track with safety barriers" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-6.jpg" alt="" aria-hidden="true">
                   </div>
+                  <!-- Tile 7 -->
                   <div class="thumb-wrap">
                     <img class="thumb-img" src="assets/gallery-7.jpg" alt="Inference profiling on embedded device" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-7.jpg" alt="" aria-hidden="true">
                   </div>
+                  <!-- Tile 8 -->
                   <div class="thumb-wrap">
                     <img class="thumb-img" src="assets/gallery-8.jpg" alt="Workshop participants testing autonomous cars" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-8.jpg" alt="" aria-hidden="true">
                   </div>
+                  <!-- Tile 9 -->
                   <div class="thumb-wrap">
                     <img class="thumb-img" src="assets/gallery-9.jpg" alt="3D printed parts for a mobile robot" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-9.jpg" alt="" aria-hidden="true">
                   </div>
-
-                   <div class="thumb-wrap">
+                  <!-- Tile 10 -->
+                  <div class="thumb-wrap">
                     <img class="thumb-img" src="assets/gallery-10.jpg" alt="Inference profiling on embedded device" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-10.jpg" alt="" aria-hidden="true">
                   </div>
+                  <!-- Tile 11 -->
                   <div class="thumb-wrap">
-                    <img class="thumb-img" src="assets/gallery-11.jpg" alt="Workshop participants testing autonomous cars" loading="lazy">
+                    <img class="thumb-img" src="assets/gallery-11.gif" alt="Workshop participants testing autonomous cars" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-11.gif" alt="" aria-hidden="true">
                   </div>
+                  <!-- Tile 12 -->
                   <div class="thumb-wrap">
-                    <img class="thumb-img" src="assets/gallery-12.jpg" alt="3D printed parts for a mobile robot" loading="lazy">
+                    <img class="thumb-img" src="assets/gallery-12.png" alt="3D printed parts for a mobile robot" loading="lazy">
+                    <img class="thumb-preview" src="assets/gallery-12.png" alt="" aria-hidden="true">
                   </div>
-
                 </div>
 
                 <!-- Social icons -->
@@ -235,11 +261,8 @@
         <div class="row align-items-center justify-content-between flex-column flex-sm-row">
           <div class="col-auto"><div class="small m-0">Copyright &copy; Ioannis Papakonstantinopoulos 2025</div></div>
           <div class="col-auto">
-            <a class="small" href="#!">Privacy</a>
-            <span class="mx-1">&middot;</span>
-            <a class="small" href="#!">Terms</a>
-            <span class="mx-1">&middot;</span>
-            <a class="small" href="contact.html">Contact</a>
+            
+            <a class="small" href="https://forms.gle/2aMErdNeLQktEYRM9">Contact</a>
           </div>
         </div>
       </div>
@@ -247,7 +270,6 @@
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
   </body>
 </html>
